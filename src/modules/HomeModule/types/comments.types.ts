@@ -1,6 +1,7 @@
 export interface IUserComment {
     name: string;
     text: string;
+    parentId: null | number;
 }
 
 export interface IComment extends IUserComment {
@@ -8,7 +9,6 @@ export interface IComment extends IUserComment {
     date: Date;
     likes: number;
     liked: boolean;
-    comments: number[];
 }
 
 export interface IUserExistingComment extends IUserComment {

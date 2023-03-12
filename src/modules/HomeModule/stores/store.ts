@@ -1,7 +1,11 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice, createSelector } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { IUserComment, IComment, IUserExistingComment } from "../types/comments.types";
+import {
+    IUserComment,
+    IComment,
+    IUserExistingComment,
+} from "../types/comments.types";
 import { initialComments } from "./initialComments";
 
 interface ICommentSliceState {
@@ -14,49 +18,22 @@ const initialState: ICommentSliceState = {
 
 export const commentsSlice = createSlice({
     name: "comments",
-    initialState,
+    initialState: { ...initialState, nextIndex: 3 },
     reducers: {
         addNewComment: (state, action: PayloadAction<IUserComment>) => {
             state.comments = [
                 ...state.comments,
                 {
-                    id: state.comments.length,
+                    id: state.nextIndex,
                     name: action.payload.name,
+                    parentId: action.payload.parentId,
                     text: action.payload.text,
                     date: new Date(),
                     likes: 0,
                     liked: false,
-                    comments: [],
                 },
             ];
-        },
-        
-        addNestedComment: (
-            state,
-            action: PayloadAction<IUserExistingComment>
-        ) => {
-            state.comments = [
-                ...state.comments.map((comment) =>
-                    comment.id === action.payload.id
-                        ? {
-                              ...comment,
-                              comments: [
-                                  ...comment.comments,
-                                  action.payload.id,
-                              ],
-                          }
-                        : { ...comment }
-                ),
-                {
-                    id: state.comments.length,
-                    name: action.payload.name,
-                    text: action.payload.text,
-                    date: new Date(),
-                    likes: 0,
-                    liked: false,
-                    comments: [],
-                },
-            ];
+            state.nextIndex = state.nextIndex + 1;
         },
 
         likeComment: (state, action: PayloadAction<number>) => {
@@ -91,15 +68,22 @@ export const commentsSlice = createSlice({
 
         deleteComment: (state, action: PayloadAction<number>) => {
             state.comments = [
-                ...state.comments
-                    .filter((comment) => comment.id !== action.payload)
-                    .map((comment) => ({ ...comment, comments: comment.comments.filter((commentId) => commentId !== action.payload)})),
+                ...state.comments.filter(
+                    (comment) => comment.id !== action.payload
+                ),
             ];
+            state.nextIndex = state.nextIndex - 1;
         },
     },
 });
 
-export const { addNewComment, addNestedComment, deleteComment, editComment, likeComment, unlikeComment } = commentsSlice.actions;
+export const {
+    addNewComment,
+    deleteComment,
+    editComment,
+    likeComment,
+    unlikeComment,
+} = commentsSlice.actions;
 
 const store = configureStore({
     reducer: {
@@ -107,8 +91,13 @@ const store = configureStore({
     },
 });
 
-type TRootState = ReturnType<typeof store.getState>;
+export type TRootState = ReturnType<typeof store.getState>;
 
-export const selectComments = (state: TRootState) => state.comments.comments;
+//export const selectComments = (state: TRootState) => state.comments.comments;
+
+export const selectCommentsByParent = (
+    state: TRootState,
+    parentId: number | null
+) => state.comments.comments.filter((comment) => comment.parentId === parentId);
 
 export default store;

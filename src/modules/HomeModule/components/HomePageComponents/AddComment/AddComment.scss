@@ -1,0 +1,59 @@
+@import '../../../../../global-styles/style.scss';
+
+.add-comment {
+    display: flex;
+    min-height: calc(132px - 2 * 32px);
+    background: $colorWhite;
+    border: $strokeSmall solid $colorWhiteDarker20;
+    border-radius: $roundingRegular;
+    padding: 32px;
+    gap: 16px;
+    cursor: text;
+    position: relative;
+
+    &:hover,
+    &:focus-within,
+    &--outline {
+        border-color: $colorBlack60;
+    }
+
+
+    & &__image {
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+
+    & &__form {
+        flex-grow: 1;
+    }
+
+    & &__textarea {
+        width: 100%;
+        padding-top: 17px;
+        border: none;
+        resize: none;
+        height: 29px;
+
+        &:hover,
+        &:focus,
+        &:active {
+            outline: none;
+        }
+    }
+
+    & &__submit {
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+
+        border: $strokeSmall solid $colorWhiteDarker20;
+        background: transparent;
+        border-radius: $roundingSmall;
+        padding: 10px 20px;
+        
+        cursor: pointer;
+    }
+}

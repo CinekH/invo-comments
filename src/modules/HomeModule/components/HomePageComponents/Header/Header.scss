@@ -1,0 +1,56 @@
+@import "../../../../../global-styles/style.scss";
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: $colorWhite;
+    border-radius: $roundingRegular;
+    position: relative;
+
+    & &__sort {
+        background: transparent;
+        border-radius: $roundingSmall;
+        border: $strokeSmall solid $colorWhiteDarker20;
+        padding: 12px 22px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    & &__dropdown {
+        position: absolute;
+        right: 32px;
+        top: 70px;
+        z-index: 100;
+
+        display: flex;
+        gap: 8px;
+        flex-direction: column;
+        background: $colorWhite;
+        padding: 14px 0px;
+        border: $strokeSmall solid $colorWhiteDarker20;
+        border-radius: $roundingSmall;
+
+        &[aria-hidden="true"] {
+            display: none;
+        }
+
+        &-button {
+            padding: 10px 23px;
+            background: transparent;
+            opacity: 0.6;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 1;
+                background: $colorWhiteDarker10;
+            }
+        }
+    }
+
+    & &__icon {
+        width: 10px;
+    }
+}
