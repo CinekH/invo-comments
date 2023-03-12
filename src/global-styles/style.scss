@@ -6,10 +6,50 @@
 @import "styles/fonts.scss";
 
 body {
-  font-family: 'Roboto', sans-serif;
-  color: var(--color-primary);
+    font-family: "Roboto", sans-serif;
+    color: $colorWhiteDarker10;
 }
 
-p {
-  color: var(--color-on-surface);
+.text-tiny {
+    font-size: var(--font-size-tiny);
+    font-weight: 500;
+}
+
+.text-small {
+    font-size: var(--font-size-small);
+    font-weight: 400;
+}
+
+.text-regular {
+    font-size: var(--font-size-regular);
+    font-weight: 400;
+}
+
+.text-big {
+    font-size: var(--font-size-big);
+    font-weight: 500;
+}
+
+@media screen and (max-width: 481px) {
+    :root {
+        --font-size-tiny: 10px;
+    }
+    .text-tiny {
+        font-weight: 400;
+    }
+
+    .text-small {
+        font-size: var(--font-size-small);
+        font-weight: 400;
+    }
+
+    .text-regular {
+        font-size: var(--font-size-regular);
+        font-weight: 400;
+    }
+
+    .text-big {
+        font-size: var(--font-size-big);
+        font-weight: 500;
+    }
 }
