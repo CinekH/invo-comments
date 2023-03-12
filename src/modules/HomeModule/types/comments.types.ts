@@ -6,7 +6,7 @@ export interface IUserComment {
 
 export interface IComment extends IUserComment {
     id: number;
-    date: Date;
+    date: string;
     likes: number;
     liked: boolean;
 }

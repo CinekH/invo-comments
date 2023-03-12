@@ -5,13 +5,20 @@ import { Comment } from './Comment/Comment';
 import './Comments.scss';
 
 interface IComments {
-  sorting: string
+  sorting: string,
+  reference: any,
+  setReplyTo: React.Dispatch<React.SetStateAction<IReplyTo>>,
 }
 
-export const Comments: React.FC<IComments> = ({ sorting }) => {
+interface IReplyTo {
+  replyToName: string | null,
+  replyToId: number | null
+}
+
+export const Comments: React.FC<IComments> = ({ sorting, reference, setReplyTo }) => {
   const comments = useSelector((state: TRootState) => selectCommentsByParent(state, null)).sort((a, b) => {
     if (sorting === 'date') {
-      return b.date.getTime() - a.date.getTime();
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
     } else {
       return b.likes - a.likes;
     }
@@ -29,6 +36,8 @@ export const Comments: React.FC<IComments> = ({ sorting }) => {
           liked={comment.liked}
           likes={comment.likes}
           parentId={comment.parentId}
+          reference={reference}
+          setReplyTo={setReplyTo}
         />
       ))}
     </div>

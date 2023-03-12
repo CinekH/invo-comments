@@ -1,13 +1,36 @@
 @import "../../../../../../global-styles/style.scss";
 
 .comment {
-    display: grid;
-    background: $colorWhite;
-    grid-template-columns: min-content 1fr min-content;
-    grid-template-rows: min-content min-content;
-    padding: 32px;
-    gap: 16px;
-    border-radius: $roundingBig;
+    &__container {
+        display: grid;
+        background: $colorWhite;
+        grid-template-columns: min-content 1fr min-content;
+        grid-template-rows: min-content min-content;
+        padding: 32px;
+        gap: 16px;
+        border-radius: $roundingBig;
+    }
+
+    &__nested {
+        width: max(90%, 300px);
+        margin-left: auto;
+        margin-top: 16px;
+        position: relative;
+        
+        &:before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 2px;
+            background: $colorWhiteDarker20;
+            left: -50px;
+            top: 0;
+
+            @media screen and (max-width: 1024px) {
+                display: none;
+            }
+        }
+    }
 
     & &__image-container {
         width: 48px;
@@ -45,11 +68,23 @@
     & &__text {
         opacity: 0.6;
         line-height: 1.3;
+        color: $colorBlack;
+
+        width: 100%;
+        padding-top: 17px;
+        border: none;
+        resize: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+            outline: none;
+        }
     }
 
     & &__menu {
         padding: 0 15px;
-        opacity: 0.6;
+        position: relative;
 
         svg {
             width: 24px;
@@ -59,8 +94,10 @@
 
     & &__menu-button {
         padding: 0;
+        opacity: 0.6;
         border: none;
         background: transparent;
+        cursor: pointer;
     }
 
     & &__bottom-menu {
@@ -137,6 +174,50 @@
             path {
                 fill: $colorPrimary;
             }
+        }
+    }
+
+    & &__dropdown {
+        position: absolute;
+        top: 34px;
+        right: 18px;
+        background: $colorWhite;
+        border: $strokeSmall solid $colorWhiteDarker20;
+        border-radius: $roundingSmall;
+        color: $colorBlack;
+        padding: 5px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        &[aria-hidden="true"] {
+            display: none;
+        }
+
+        &-button {
+            background: none;
+            display: flex;
+            border: none;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 25px;
+
+            &:hover,
+            &:focus {
+                color: $colorPrimary;
+
+                svg {
+                    path {
+                        fill: $colorPrimary;
+                    }
+                }
+            }
+        }
+
+        svg {
+            width: 14px;
+            translate: 0 -2px;
         }
     }
 }

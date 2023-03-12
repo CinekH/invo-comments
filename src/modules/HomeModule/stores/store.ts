@@ -28,7 +28,7 @@ export const commentsSlice = createSlice({
                     name: action.payload.name,
                     parentId: action.payload.parentId,
                     text: action.payload.text,
-                    date: new Date(),
+                    date: new Date().toString(),
                     likes: 0,
                     liked: false,
                 },
@@ -60,7 +60,10 @@ export const commentsSlice = createSlice({
             state.comments = [
                 ...state.comments.map((comment) =>
                     comment.id === action.payload.id
-                        ? { ...comment, text: action.payload.text }
+                        ? {
+                              ...comment,
+                              text: action.payload.text,
+                          }
                         : { ...comment }
                 ),
             ];

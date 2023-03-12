@@ -1,13 +1,23 @@
-import React, { FormEvent, useRef, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import './AddComment.scss';
 import { addNewComment } from '@/modules/HomeModule/stores/store';
 import { useDispatch } from 'react-redux';
 
 import user1 from '../../../../../assets/images/user1.png';
 
-export const AddComment: React.FC = () => {
+interface IReplyTo {
+    replyToName: string | null,
+    replyToId: number | null
+}
+
+interface IAddComment {
+    replyTo: IReplyTo,
+    setReplyTo: React.Dispatch<React.SetStateAction<IReplyTo>>,
+    reference: any,
+}
+
+export const AddComment: React.FC<IAddComment> = ({ replyTo, setReplyTo, reference }) => {
     const [commentText, setCommentText] = useState<string>('');
-    const textareaRef = useRef<any>(null);
     const dispatch = useDispatch();
 
     const resize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -25,16 +35,18 @@ export const AddComment: React.FC = () => {
         dispatch(addNewComment({
             name: 'Ellie Alvaz',
             text: commentText,
-            parentId: null,
+            parentId: replyTo.replyToId,
         }));
         setCommentText('');
+        setReplyTo({ replyToId: null, replyToName: null });
     }
 
     return (
-        <div className={`add-comment${commentText !== '' ? ' add-comment--outline' : ''}`} onClick={() => textareaRef.current?.focus() }>
+        <div className={`add-comment${commentText !== '' ? ' add-comment--outline' : ''}`} onClick={() => reference.current?.focus()}>
             <img src={user1} className='add-comment__image' />
+            <p className="add-comment__reply">{replyTo.replyToName !== null ? <><span className='text-tiny add-comment__reply-text'>Reply to <span className='text-small'>{replyTo.replyToName}</span></span></> : ''}</p>
             <form className='add-comment__form' action="#" onSubmit={handleSubmit}>
-                <textarea ref={textareaRef} className='add-comment__textarea' placeholder='Add comment...' onChange={handleChange} value={commentText}>
+                <textarea ref={reference} className='add-comment__textarea' placeholder='Add comment...' onChange={handleChange} value={commentText}>
                 </textarea>
                 {commentText.length > 1 ? <button type='submit' className='add-comment__submit'>Submit</button> : null}
             </form>
