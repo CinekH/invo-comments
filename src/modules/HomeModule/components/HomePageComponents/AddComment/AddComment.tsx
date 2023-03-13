@@ -20,6 +20,8 @@ export const AddComment: React.FC<IAddComment> = ({ replyTo, setReplyTo, referen
     const [commentText, setCommentText] = useState<string>('');
     const dispatch = useDispatch();
 
+
+    //resizing textarea just like in Comment component
     const resize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         event.target.style.height = '29px';
         event.target.style.height = `${event.target.scrollHeight}px`;
@@ -30,6 +32,8 @@ export const AddComment: React.FC<IAddComment> = ({ replyTo, setReplyTo, referen
         setCommentText(event.target.value);
     }
 
+
+    //dispatch add new comment action when user submits form
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         dispatch(addNewComment({

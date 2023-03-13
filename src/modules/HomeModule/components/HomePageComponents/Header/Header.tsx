@@ -15,6 +15,8 @@ export const Header: React.FC<IHeader> = ({ setSorting }) => {
     const comments = useSelector((state: TRootState) => selectCommentsByParent(state, null));
     const [menuExpanded, setMenuExpanded] = useState(false);
 
+
+    //setting sorting method on state given by parent
     const handleClick = (sortingMethod: string) => {
         setMenuExpanded(false);
         setSorting(sortingMethod);

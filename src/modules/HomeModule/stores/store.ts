@@ -1,4 +1,4 @@
-import { configureStore, createSlice, createSelector } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import {
@@ -15,6 +15,8 @@ interface ICommentSliceState {
 const initialState: ICommentSliceState = {
     comments: [...initialComments],
 };
+
+// Slices needed to dispatch actions
 
 export const commentsSlice = createSlice({
     name: "comments",
@@ -96,7 +98,7 @@ const store = configureStore({
 
 export type TRootState = ReturnType<typeof store.getState>;
 
-//export const selectComments = (state: TRootState) => state.comments.comments;
+// Making selector to get filtered state
 
 export const selectCommentsByParent = (
     state: TRootState,

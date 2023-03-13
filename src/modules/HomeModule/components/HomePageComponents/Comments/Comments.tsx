@@ -17,6 +17,7 @@ interface IReplyTo {
 }
 
 export const Comments: React.FC<IComments> = ({ sorting, reference, setReplyTo, windowSize }) => {
+  //get all root comments
   const comments = useSelector((state: TRootState) => selectCommentsByParent(state, null)).sort((a, b) => {
     if (sorting === 'date') {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
@@ -24,7 +25,8 @@ export const Comments: React.FC<IComments> = ({ sorting, reference, setReplyTo, 
       return b.likes - a.likes;
     }
   });
-
+  
+//then render them
   return (
     <div className='comments'>
       {comments.map((comment) => (

@@ -46,12 +46,11 @@ export const Comment: React.FC<IComment> = ({ text, name, id, date, liked, likes
   const [editedText, setEditedText] = useState<string>(text);
   const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(false);
 
-  useEffect(() => {
-    textareaRefference.current.style.height = '29px';
-    textareaRefference.current.style.height = `${textareaRefference.current.scrollHeight}px`;
-  }, [windowSize])
 
-
+  /*
+  render image depending on user name, if there was an autorization
+and database, user images will be downloaded from DB
+*/
   const getImage = () => {
     switch (name) {
       case 'Ellie Alvaz':
@@ -65,31 +64,42 @@ export const Comment: React.FC<IComment> = ({ text, name, id, date, liked, likes
     }
   }
 
+  //resizing textarea when user types more and more text
+  useEffect(() => {
+    textareaRefference.current.style.height = '29px';
+    textareaRefference.current.style.height = `${textareaRefference.current.scrollHeight}px`;
+  }, [windowSize])
+
   const resize = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     event.target.style.height = '29px';
     event.target.style.height = `${event.target.scrollHeight}px`;
   }
 
+  //handle liking or unliking the comment
   const handleLike = () => {
     liked ? dispatch(unlikeComment(id)) : dispatch(likeComment(id))
   }
 
+  //updating store when useer types anything in textarea
   const handleEditText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     resize(event);
     setEditedText(event.target.value);
     dispatch(editComment({ id: id, text: event.target.value, name: name, parentId: parentId }))
   }
 
+  //when user clicks the reply button, needed data are sending to AddComment component
   const handleReplyClick = () => {
     reference.current?.focus();
     setReplyTo({ replyToId: id, replyToName: name });
   }
 
+  //make textarea editable if user clicks the edit button
   const handleEditButton = () => {
     textareaRefference.current.disabled = false;
     setIsMenuExpanded(false);
   }
 
+  //delete comment when user clicks delete button
   const handleDeleteButton = () => {
     dispatch(deleteComment(id));
   }

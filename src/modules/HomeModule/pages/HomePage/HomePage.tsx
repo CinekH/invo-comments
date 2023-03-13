@@ -16,6 +16,8 @@ export const HomePage: React.FC = () => {
   const textareaRef = useRef<any>(null);
   const [windowSize, setWindowSize] = useState<number>(0);
 
+
+  // It's needed to resize textareas when window width has changed.
   const handleResize = () => {
     setWindowSize(window.innerWidth);
   }
