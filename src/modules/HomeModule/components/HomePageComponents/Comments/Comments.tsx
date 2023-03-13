@@ -8,6 +8,7 @@ interface IComments {
   sorting: string,
   reference: any,
   setReplyTo: React.Dispatch<React.SetStateAction<IReplyTo>>,
+  windowSize: number
 }
 
 interface IReplyTo {
@@ -15,7 +16,7 @@ interface IReplyTo {
   replyToId: number | null
 }
 
-export const Comments: React.FC<IComments> = ({ sorting, reference, setReplyTo }) => {
+export const Comments: React.FC<IComments> = ({ sorting, reference, setReplyTo, windowSize }) => {
   const comments = useSelector((state: TRootState) => selectCommentsByParent(state, null)).sort((a, b) => {
     if (sorting === 'date') {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
@@ -38,6 +39,7 @@ export const Comments: React.FC<IComments> = ({ sorting, reference, setReplyTo }
           parentId={comment.parentId}
           reference={reference}
           setReplyTo={setReplyTo}
+          windowSize={windowSize}
         />
       ))}
     </div>

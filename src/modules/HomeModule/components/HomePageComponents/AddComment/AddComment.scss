@@ -11,6 +11,10 @@
     cursor: text;
     position: relative;
 
+    @media screen and (max-width: 1024) {
+        padding: 24px;
+    }
+
     &:hover,
     &:focus-within,
     &--outline {

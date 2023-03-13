@@ -7,6 +7,11 @@
     background: $colorWhite;
     border-radius: $roundingRegular;
     position: relative;
+    align-items: center;
+
+    @media screen and (max-width: 1024px) {
+        padding: 8px 24px;
+    }
 
     & &__sort {
         background: transparent;
@@ -16,6 +21,12 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        
+        @media screen and (max-width: 1024px) {
+            padding: 0px 22px;
+            height: 42px;
+        }
+    
     }
 
     & &__dropdown {

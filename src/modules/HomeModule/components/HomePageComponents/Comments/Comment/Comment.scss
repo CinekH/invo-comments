@@ -6,7 +6,7 @@
         background: $colorWhite;
         grid-template-columns: min-content 1fr min-content;
         grid-template-rows: min-content min-content;
-        padding: 32px;
+        padding: 24px;
         gap: 16px;
         border-radius: $roundingBig;
     }
@@ -52,12 +52,13 @@
     & &__header {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         padding-top: 3px;
     }
 
     & &__name {
         margin: 0;
+        width: max-content;
     }
 
     & &__date {
@@ -74,6 +75,7 @@
         padding-top: 17px;
         border: none;
         resize: none;
+        background: transparent;
 
         &:hover,
         &:focus,
@@ -83,7 +85,7 @@
     }
 
     & &__menu {
-        padding: 0 15px;
+        padding: 0 10px;
         position: relative;
 
         svg {

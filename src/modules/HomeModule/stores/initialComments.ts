@@ -23,7 +23,7 @@ export const initialComments = [
         date: new Date("2023-03-11T12:29:55").toString(),
         text: `I'm usually not a fan of Miley Cyrus though I respect her job. And I have to recognize this song is so great : lyrics, voice, melody, rhythm, etc. I just can't stop listening to this one. Bravo Miley !
 
-        By the way, I think she looks like Madonna more and more.`,
+By the way, I think she looks like Madonna more and more.`,
         likes: 99,
         liked: false,
         parentId: null

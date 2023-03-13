@@ -46,9 +46,9 @@ export const AddComment: React.FC<IAddComment> = ({ replyTo, setReplyTo, referen
             <img src={user1} className='add-comment__image' />
             <p className="add-comment__reply">{replyTo.replyToName !== null ? <><span className='text-tiny add-comment__reply-text'>Reply to <span className='text-small'>{replyTo.replyToName}</span></span></> : ''}</p>
             <form className='add-comment__form' action="#" onSubmit={handleSubmit}>
-                <textarea ref={reference} className='add-comment__textarea' placeholder='Add comment...' onChange={handleChange} value={commentText}>
+                <textarea aria-label="type your comment herer" ref={reference} className='add-comment__textarea' placeholder='Add comment...' onChange={handleChange} value={commentText}>
                 </textarea>
-                {commentText.length > 1 ? <button type='submit' className='add-comment__submit'>Submit</button> : null}
+                {commentText.length > 1 ? <button aria-label="submit new comment" type='submit' className='add-comment__submit'>Submit</button> : null}
             </form>
         </div>
     )

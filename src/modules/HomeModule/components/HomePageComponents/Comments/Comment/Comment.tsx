@@ -34,10 +34,11 @@ interface IComment {
   parentId: number | null,
   reference: any,
   setReplyTo: React.Dispatch<React.SetStateAction<IReplyTo>>,
+  windowSize: number,
 }
 
 
-export const Comment: React.FC<IComment> = ({ text, name, id, date, liked, likes, parentId, reference, setReplyTo }) => {
+export const Comment: React.FC<IComment> = ({ text, name, id, date, liked, likes, parentId, reference, setReplyTo, windowSize }) => {
   const comments = useSelector((state: TRootState) => selectCommentsByParent(state, id));
   const dispatch = useDispatch();
   const textareaRefference = useRef<any>(null);
@@ -48,7 +49,7 @@ export const Comment: React.FC<IComment> = ({ text, name, id, date, liked, likes
   useEffect(() => {
     textareaRefference.current.style.height = '29px';
     textareaRefference.current.style.height = `${textareaRefference.current.scrollHeight}px`;
-  }, [])
+  }, [windowSize])
 
 
   const getImage = () => {
@@ -107,15 +108,15 @@ export const Comment: React.FC<IComment> = ({ text, name, id, date, liked, likes
           <textarea onChange={handleEditText} className="text-regular comment__text" disabled={true} ref={textareaRefference} value={editedText}></textarea>
         </div>
         <div className='comment__menu'>
-          <button className='comment__menu-button' onClick={() => setIsMenuExpanded(prev => !prev)} aria-expanded={isMenuExpanded}>
+          <button className='comment__menu-button' onClick={() => setIsMenuExpanded(prev => !prev)} aria-expanded={isMenuExpanded} aria-label="show additional options">
             <Dots />
           </button>
           <div className='comment__dropdown' aria-hidden={!isMenuExpanded}>
-            <button className='comment__dropdown-button' onClick={handleEditButton}>
+            <button className='comment__dropdown-button' onClick={handleEditButton} aria-label="edit comment">
               <Edit className="comment__dropdown-icon" />
               <span className='text-small'>Edit</span>
             </button>
-            <button className='comment__dropdown-button' onClick={handleDeleteButton}>
+            <button className='comment__dropdown-button' onClick={handleDeleteButton} aria-label="delete comment">
               <Trash className="comment__dropdown-icon" />
               <span className='text-small'>Delete</span>
             </button>
@@ -123,12 +124,12 @@ export const Comment: React.FC<IComment> = ({ text, name, id, date, liked, likes
         </div>
         <div className="comment__bottom-menu">
           <div className={`comment__like-container${liked ? ' comment__liked' : ''}`}>
-            <button className='comment__button comment__button--like' onClick={handleLike}>
+            <button className='comment__button comment__button--like' onClick={handleLike} aria-label="like or unlike comment">
               <Like className='comment__icon comment__icon--like' />
             </button>
             <span className='text-small comment__likes'>{likes}</span>
           </div>
-          <button onClick={handleReplyClick} className='comment__button comment__button--reply'>
+          <button onClick={handleReplyClick} className='comment__button comment__button--reply' aria-label="reply to this comment">
             <Reply className="comment__icon comment__icon--reply" />
             <span className='text-small comment__reply'>Reply</span>
           </button>
@@ -148,6 +149,7 @@ export const Comment: React.FC<IComment> = ({ text, name, id, date, liked, likes
               parentId={comment.parentId}
               reference={reference}
               setReplyTo={setReplyTo}
+              windowSize={windowSize}
             />
           ))}
         </div>
