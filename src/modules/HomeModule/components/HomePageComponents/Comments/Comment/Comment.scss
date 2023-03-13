@@ -16,6 +16,8 @@
         margin-left: auto;
         margin-top: 16px;
         position: relative;
+        display: grid;
+        gap: 16px;
         
         &:before {
             content: '';
